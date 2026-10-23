@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="logo.png">
+  <title>VigilantDigital Solutions | Protect. Empower.</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #1e2b3c;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* corporate blue / white / grey */
+    :root {
+      --primary-blue: #0a66c2;      /* LinkedIn-like professional blue */
+      --primary-dark: #004182;
+      --accent-blue: #1e88e5;
+      --light-blue: #e8f0fe;
+      --soft-grey: #f4f7fc;
+      --border-grey: #d9e1ec;
+      --text-dark: #1e2b3c;
+      --text-muted: #4a5b6e;
+      --white: #ffffff;
+      --shadow-sm: 0 4px 12px rgba(0, 40, 80, 0.05);
+      --shadow-md: 0 8px 24px rgba(0, 40, 80, 0.08);
+      --radius: 12px;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* header / nav */
+    header {
+      background-color: var(--white);
+      border-bottom: 1px solid var(--border-grey);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 14px 0;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-img {
+      height: 48px;
+      width: 48px;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .hero-logo {
+      width: 220px;
+      max-width: 100%;
+      height: auto;
+      border-radius: 20px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .logo-text {
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      color: var(--primary-dark);
+    }
+
+    .logo-text span {
+      color: var(--primary-blue);
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-dark);
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-blue);
+    }
+
+    .btn-outline {
+      display: inline-block;
+      border: 1.5px solid var(--primary-blue);
+      color: var(--primary-blue);
+      background: transparent;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-outline:hover {
+      background: var(--primary-blue);
+      color: var(--white);
+    }
+
+    .btn-primary {
+      background: var(--primary-blue);
+      color: var(--white);
+      padding: 12px 30px;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--primary-blue);
+      border: 1.5px solid var(--border-grey);
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+      font-size: 1rem;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary-blue);
+      background: var(--light-blue);
+    }
+
+    /* mobile nav */
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      background: none;
+      border: none;
+      color: var(--primary-blue);
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 16px;
+        padding: 24px 0 12px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .navbar {
+        padding: 12px 0;
+      }
+    }
+
+    /* HERO section */
+    .hero {
+      background: linear-gradient(145deg, #f0f7ff 0%, #ffffff 100%);
+      padding: 60px 0 70px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--light-blue);
+      color: var(--primary-dark);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 6px 16px;
+      border-radius: 40px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 2.9rem;
+      line-height: 1.2;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: var(--primary-blue);
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      max-width: 600px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .hero-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .hero-highlights div {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .hero-highlights i {
+      color: var(--primary-blue);
+      font-size: 1.2rem;
+    }
+
+    .hero-image {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      padding: 32px 24px;
+      text-align: center;
+      border: 1px solid var(--border-grey);
+    }
+
+    .hero-image img {
+      max-width: 100%;
+      height: auto;
+      max-height: 220px;
+      width: auto;
+    }
+
+    .hero-image p {
+      margin: 18px 0 0;
+      font-weight: 500;
+      color: var(--primary-dark);
+      font-size: 1rem;
+    }
+
+    @media (max-width: 860px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .hero-highlights {
+        justify-content: center;
+      }
+
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+    }
+
+    /* section styles */
+    section {
+      padding: 70px 0;
+      border-bottom: 1px solid var(--border-grey);
+    }
+
+    section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-sub {
+      color: var(--text-muted);
+      max-width: 700px;
+      margin-bottom: 48px;
+      font-size: 1.1rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border: 1px solid var(--border-grey);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent-blue);
+    }
+
+    .service-icon {
+      font-size: 2.2rem;
+      color: var(--primary-blue);
+      margin-bottom: 20px;
+    }
+
+    .service-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-dark);
+    }
+
+    .service-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+    }
+
+    .service-list {
+      list-style: none;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .service-list li {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .service-list i {
+      color: var(--primary-blue);
+      font-size: 0.8rem;
+      margin-top: 4px;
+    }
+
+    /* why choose us */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 28px;
+    }
+
+    .why-item {
+      background: var(--soft-grey);
+      padding: 28px 22px;
+      border-radius: var(--radius);
+      border-left: 4px solid var(--primary-blue);
+    }
+
+    .why-item h4 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--primary-dark);
+    }
+
+    .why-item p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* target clients */
+    .clients-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      list-style: none;
+      margin-top: 24px;
+    }
+
+    .clients-list li {
+      background: var(--light-blue);
+      color: var(--primary-dark);
+      font-weight: 500;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      border: 1px solid #cde1f5;
+    }
+
+    /* mission vision values */
+    .mission-vision-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+
+    .mv-card {
+      background: var(--white);
+      border: 1px solid var(--border-grey);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .mv-card i {
+      font-size: 2rem;
+      color: var(--primary-blue);
+      margin-bottom: 16px;
+    }
+
+    .mv-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      color: var(--text-dark);
+    }
+
+    .mv-card p {
+      color: var(--text-muted);
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .value-tag {
+      background: var(--soft-grey);
+      padding: 12px 16px;
+      border-radius: 40px;
+      font-weight: 500;
+      color: var(--text-dark);
+      font-size: 0.95rem;
+      border: 1px solid var(--border-grey);
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .mission-vision-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* engagement / quiz section */
+    .engage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .engage-card {
+      background: var(--white);
+      border: 1px solid var(--border-grey);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .engage-card h3 {
+      margin-bottom: 20px;
+      font-size: 1.4rem;
+    }
+
+    .quiz-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .quiz-links a {
+      background: var(--light-blue);
+      color: var(--primary-dark);
+      padding: 8px 20px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: 0.2s;
+      border: 1px solid var(--border-grey);
+    }
+
+    .quiz-links a:hover {
+      background: var(--primary-blue);
+      color: var(--white);
+    }
+
+    @media (max-width: 860px) {
+      .engage-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* footer */
+    footer {
+      background: var(--primary-dark);
+      color: #e0ecf9;
+      padding: 50px 0 30px;
+      margin-top: 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-col h4 {
+      color: var(--white);
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    .footer-col p, .footer-col a {
+      color: #c2d6ed;
+      text-decoration: none;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      display: block;
+    }
+
+    .footer-col a:hover {
+      color: var(--white);
+      text-decoration: underline;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .social-icons a {
+      color: #c2d6ed;
+      font-size: 1.4rem;
+      transition: color 0.2s;
+    }
+
+    .social-icons a:hover {
+      color: var(--white);
+    }
+
+    .copyright {
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 24px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #a0b8d0;
+    }
+
+    /* small adjustments */
+    .report-section {
+      background: var(--soft-grey);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin: 30px 0;
+      border: 1px solid var(--border-grey);
+    }
+
+    .report-section h3 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.4rem;
+      color: var(--primary-dark);
+    }
+
+    .report-section p {
+      margin: 16px 0;
+      color: var(--text-muted);
+    }
+
+    .fake-list {
+      background: var(--white);
+      padding: 16px 20px;
+      border-radius: 8px;
+      border-left: 4px solid #d32f2f;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 20px;
+    }
+
+    .fake-list strong {
+      color: var(--text-dark);
+    }
+
+    /* utility */
+    .text-center {
+      text-align: center;
+    }
+
+    .mt-4 {
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER / NAVIGATION -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <a href="#" class="logo-area">
+          <img class="logo-img" src="logo.png" alt="VigilantDigital Solutions logo">
+          <span class="logo-text">Vigilant<span>Digital</span></span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#why-us">Why Us</a></li>
+          <li><a href="#clients">Clients</a></li>
+          <li><a href="#engage">Engage</a></li>
+          <li><a href="#contact" class="btn-outline">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION (HOME) -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <span class="hero-badge">Cybersecurity & IT Consultancy</span>
+          <h1>Protecting Your Digital World. <span>Empowering Your Business.</span></h1>
+          <p>VigilantDigital Solutions equips individuals, businesses, and institutions with cybersecurity training, IT consultancy, fraud prevention, and digital forensics — all under one integrated service.</p>
+          <div class="hero-buttons">
+            <a href="#contact" class="btn-primary">Book a Consultation <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></a>
+            <a href="#services" class="btn-secondary">Explore Services</a>
+          </div>
+          <div class="hero-highlights">
+            <div><i class="fas fa-check-circle"></i> Integrated security</div>
+            <div><i class="fas fa-check-circle"></i> Practical IT solutions</div>
+            <div><i class="fas fa-check-circle"></i> Fraud prevention</div>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img class="hero-logo" src="logo.png" alt="VigilantDigital Solutions logo">
+          <p>Trusted. Integrated. Vigilant.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES (integrated) -->
+  <section id="services">
+    <div class="container">
+      <h2 class="section-title">Integrated Services</h2>
+      <p class="section-sub">From training to forensics — we cover the full spectrum of digital security, IT improvement, and fraud prevention.</p>
+
+      <div class="services-grid">
+        <!-- A. Cybersecurity Training -->
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
+          <h3>Cybersecurity Training</h3>
+          <p>Customized programmes for employees, churches, SMEs, and individuals.</p>
+          <ul class="service-list">
+            <li><i class="fas fa-chevron-right"></i> Corporate awareness</li>
+            <li><i class="fas fa-chevron-right"></i> Cyber hygiene & phishing</li>
+            <li><i class="fas fa-chevron-right"></i> Religious institutions</li>
+            <li><i class="fas fa-chevron-right"></i> AI & deepfake awareness</li>
+          </ul>
+        </div>
+
+        <!-- B. Cybersecurity Consultancy -->
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-clipboard-check"></i></div>
+          <h3>Cybersecurity Consultancy</h3>
+          <p>Risk assessments, audits, policy development, and incident response planning.</p>
+          <ul class="service-list">
+            <li><i class="fas fa-chevron-right"></i> Risk assessments</li>
+            <li><i class="fas fa-chevron-right"></i> Security audits & reviews</li>
+            <li><i class="fas fa-chevron-right"></i> Incident response planning</li>
+            <li><i class="fas fa-chevron-right"></i> Third-party vendor assessments</li>
+          </ul>
+        </div>
+
+        <!-- C. IT Consultancy -->
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+          <h3>IT Consultancy</h3>
+          <p>Systems review, process improvement, infrastructure, procurement, and digital transformation.</p>
+          <ul class="service-list">
+            <li><i class="fas fa-chevron-right"></i> IT systems review & assessment</li>
+            <li><i class="fas fa-chevron-right"></i> Business process improvement</li>
+            <li><i class="fas fa-chevron-right"></i> IT equipment supply & procurement</li>
+            <li><i class="fas fa-chevron-right"></i> Cloud & data management advisory</li>
+          </ul>
+        </div>
+
+        <!-- D. Fraud Investigation & Digital Forensics -->
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-search"></i></div>
+          <h3>Fraud Investigation & Forensics</h3>
+          <p>Digital evidence examination, fraud analysis, and control reviews.</p>
+          <ul class="service-list">
+            <li><i class="fas fa-chevron-right"></i> Digital forensics</li>
+            <li><i class="fas fa-chevron-right"></i> Cyber fraud analysis</li>
+            <li><i class="fas fa-chevron-right"></i> Insider fraud reviews</li>
+            <li><i class="fas fa-chevron-right"></i> Fraud prevention recommendations</li>
+          </ul>
+        </div>
+
+        <!-- E. AI and Emerging Tech Advisory -->
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-robot"></i></div>
+          <h3>AI & Emerging Tech Advisory</h3>
+          <p>Understand security implications and adopt AI responsibly.</p>
+          <ul class="service-list">
+            <li><i class="fas fa-chevron-right"></i> AI cybersecurity risk assessments</li>
+            <li><i class="fas fa-chevron-right"></i> Deepfake & impersonation training</li>
+            <li><i class="fas fa-chevron-right"></i> AI usage policies</li>
+            <li><i class="fas fa-chevron-right"></i> Automation security guidance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section id="why-us" style="background: var(--soft-grey);">
+    <div class="container">
+      <h2 class="section-title">Why Choose Us</h2>
+      <p class="section-sub">We combine practical technology knowledge with security awareness and operational improvement.</p>
+      <div class="why-grid">
+        <div class="why-item">
+          <h4>Integrated Services</h4>
+          <p>Cybersecurity, IT consultancy, fraud prevention, and digital forensics under one roof.</p>
+        </div>
+        <div class="why-item">
+          <h4>Practical Solutions</h4>
+          <p>Recommendations that address real operational challenges — not just theory.</p>
+        </div>
+        <div class="why-item">
+          <h4>Customized Engagements</h4>
+          <p>Tailored to your size, needs, resources, and objectives.</p>
+        </div>
+        <div class="why-item">
+          <h4>Security-Conscious IT</h4>
+          <p>Technology advice that considers security, reliability, usability, and cost.</p>
+        </div>
+        <div class="why-item">
+          <h4>Process Improvement</h4>
+          <p>Reducing inefficiencies, strengthening accountability, improving service delivery.</p>
+        </div>
+        <div class="why-item">
+          <h4>Knowledge Transfer</h4>
+          <p>We build internal capacity through training, documentation, and guidance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TARGET CLIENTS -->
+  <section id="clients">
+    <div class="container">
+      <h2 class="section-title">Industries We Serve</h2>
+      <p class="section-sub">We tailor our services to the unique security and technology needs of each sector.</p>
+      <ul class="clients-list">
+        <li>Corporate organizations</li>
+        <li>SMEs</li>
+        <li>Banks & fintechs</li>
+        <li>Churches & religious institutions</li>
+        <li>Government institutions</li>
+        <li>Schools & universities</li>
+        <li>Healthcare facilities</li>
+        <li>NGOs & development orgs</li>
+        <li>Retail businesses</li>
+        <li>Professional bodies</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MISSION, VISION, VALUES -->
+  <section style="background: var(--soft-grey);">
+    <div class="container">
+      <div class="mission-vision-grid">
+        <div class="mv-card">
+          <i class="fas fa-bullseye"></i>
+          <h3>Our Mission</h3>
+          <p>To help individuals and organizations operate securely and efficiently in the digital world through cybersecurity education, professional IT consultancy, practical technology solutions, and effective fraud prevention.</p>
+        </div>
+        <div class="mv-card">
+          <i class="fas fa-eye"></i>
+          <h3>Our Vision</h3>
+          <p>To become a trusted provider of cybersecurity training, IT consultancy, and digital risk management solutions, empowering organizations to embrace technology with confidence.</p>
+        </div>
+      </div>
+      <h3 style="font-size: 1.6rem; margin: 32px 0 16px; color: var(--text-dark);">Core Values</h3>
+      <div class="values-grid">
+        <span class="value-tag">Integrity</span>
+        <span class="value-tag">Professionalism</span>
+        <span class="value-tag">Confidentiality</span>
+        <span class="value-tag">Innovation</span>
+        <span class="value-tag">Reliability</span>
+        <span class="value-tag">Continuous Learning</span>
+        <span class="value-tag">Client Focus</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENGAGE WITH US + QUIZ + REPORT SCAM -->
+  <section id="engage">
+    <div class="container">
+      <h2 class="section-title">Engage With Us</h2>
+      <p class="section-sub">Secure your digital future today. Test your knowledge, report scams, or start a conversation.</p>
+
+      <div class="engage-grid">
+        <!-- Left: quiz and consultation -->
+        <div class="engage-card">
+          <h3><i class="fas fa-lightbulb" style="color: var(--primary-blue); margin-right: 10px;"></i> Test Your Cyber Security Knowledge</h3>
+          <p style="color: var(--text-muted); margin-bottom: 16px;">Choose a quiz tailored to your audience.</p>
+          <div class="quiz-links">
+            <a href="#"><i class="fas fa-graduation-cap"></i> Students Quiz</a>
+            <a href="#"><i class="fas fa-user-clock"></i> Senior Citizens Quiz</a>
+            <a href="#"><i class="fas fa-briefcase"></i> Employees Quiz</a>
+            <a href="#"><i class="fas fa-question-circle"></i> General Knowledge</a>
+          </div>
+          <hr style="margin: 28px 0 20px; border: 0; border-top: 1px solid var(--border-grey);">
+          <h3><i class="fas fa-calendar-check" style="color: var(--primary-blue); margin-right: 10px;"></i> Book a Consultation</h3>
+          <p style="color: var(--text-muted); margin-bottom: 16px;">Let’s discuss your security or IT needs.</p>
+          <a href="#contact" class="btn-primary" style="display: inline-block;">Request a Consultation</a>
+        </div>
+
+        <!-- Right: report scam -->
+        <div class="engage-card" style="background: #fff6f5; border-color: #f5c6c6;">
+          <h3><i class="fas fa-exclamation-triangle" style="color: #c62828; margin-right: 10px;"></i> Report an Online Scam</h3>
+          <p style="color: var(--text-muted);">Have you encountered a fraudulent profile, page, or scam? Help us warn others.</p>
+          <div style="margin: 20px 0;">
+            <a href="#" class="btn-primary" style="background: #c62828; border-color: #c62828;">File a Report</a>
+          </div>
+          <div class="fake-list">
+            <strong>⚠️ Known fraudulent profiles (sample):</strong><br>
+            • “QuickLoanGH” — fake social media lender<br>
+            • “CryptoWealthAfrica” — fraudulent investment page<br>
+            • “ChurchSupportFund” — impersonation scam
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT & FOOTER -->
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>VigilantDigital Solutions</h4>
+          <p>Protecting Your Digital World.<br>Empowering Your Business.</p>
+          <div class="social-icons">
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p><i class="fas fa-map-marker-alt" style="width: 20px;"></i> New Achimota, Accra</p>
+          <p><i class="fas fa-envelope" style="width: 20px;"></i> vigilantdigitalsolutions@gmail.com</p>
+          <p><i class="fas fa-phone-alt" style="width: 20px;"></i> 0245093667</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a href="#home">Home</a>
+          <a href="#services">Services</a>
+          <a href="#why-us">Why Us</a>
+          <a href="#clients">Clients</a>
+          <a href="#engage">Engage / Quizzes</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="#">Insights & Resources</a>
+          <a href="#">Report Online Scam</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2025 VigilantDigital Solutions. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- mobile menu toggle script -->
+  <script>
+    const toggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+      });
+    }
+    // close menu on link click (for mobile)
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
