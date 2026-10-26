@@ -552,6 +552,38 @@
       color: var(--white);
     }
 
+    .quiz-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 14px 16px;
+      background: #fff8df;
+      border: 1px solid #f0d889;
+      border-radius: 8px;
+      color: #664d03;
+      font-size: 0.9rem;
+    }
+
+    .consultation-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .consultation-form .full-width { grid-column: 1 / -1; }
+    .consultation-form label { display: block; margin-bottom: 6px; color: var(--text-dark); font-size: 0.9rem; font-weight: 600; }
+    .consultation-form input, .consultation-form select, .consultation-form textarea { width: 100%; padding: 11px 12px; border: 1px solid var(--border-grey); border-radius: 8px; color: var(--text-dark); background: var(--white); font: inherit; }
+    .consultation-form textarea { min-height: 110px; resize: vertical; }
+    .consultation-form input:focus, .consultation-form select:focus, .consultation-form textarea:focus { outline: 3px solid rgba(30, 136, 229, 0.2); border-color: var(--accent-blue); }
+    .form-help { color: var(--text-muted); font-size: 0.82rem; margin-top: 10px; }
+
+    @media (max-width: 560px) {
+      .consultation-form { grid-template-columns: 1fr; }
+      .consultation-form .full-width { grid-column: auto; }
+    }
+
     @media (max-width: 860px) {
       .engage-grid {
         grid-template-columns: 1fr;
@@ -698,7 +730,7 @@
           <h1>Protecting Your Digital World. <span>Empowering Your Business.</span></h1>
           <p>VigilantDigital Solutions equips individuals, businesses, and institutions with cybersecurity training, IT consultancy, fraud prevention, and digital forensics — all under one integrated service.</p>
           <div class="hero-buttons">
-            <a href="#contact" class="btn-primary">Book a Consultation <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></a>
+            <a href="#consultation" class="btn-primary">Book a Consultation <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></a>
             <a href="#services" class="btn-secondary">Explore Services</a>
           </div>
           <div class="hero-highlights">
@@ -884,15 +916,47 @@
           <h3><i class="fas fa-lightbulb" style="color: var(--primary-blue); margin-right: 10px;"></i> Test Your Cyber Security Knowledge</h3>
           <p style="color: var(--text-muted); margin-bottom: 16px;">Choose a quiz tailored to your audience.</p>
           <div class="quiz-links">
-            <a href="#"><i class="fas fa-graduation-cap"></i> Students Quiz</a>
-            <a href="#"><i class="fas fa-user-clock"></i> Senior Citizens Quiz</a>
-            <a href="#"><i class="fas fa-briefcase"></i> Employees Quiz</a>
-            <a href="#"><i class="fas fa-question-circle"></i> General Knowledge</a>
+            <a href="https://students-cyber-quiz.vercel.app/" target="_blank" rel="noopener noreferrer"><i class="fas fa-graduation-cap"></i> Students Quiz</a>
+            <a href="https://seniors-cyber-sentry.vercel.app/" target="_blank" rel="noopener noreferrer"><i class="fas fa-user-clock"></i> Senior Citizens Quiz</a>
+            <a href="https://employee-awareness-quiz.vercel.app/" target="_blank" rel="noopener noreferrer"><i class="fas fa-briefcase"></i> Employee Awareness Quiz</a>
+            <a href="https://v0-cyber-security-quiz-zl.vercel.app/" target="_blank" rel="noopener noreferrer"><i class="fas fa-question-circle"></i> General Knowledge Quiz</a>
           </div>
+          <div class="quiz-note"><i class="fas fa-key" aria-hidden="true"></i><span><strong>General Knowledge Quiz access:</strong> enter code <strong>CSAW2025</strong> when prompted to begin.</span></div>
           <hr style="margin: 28px 0 20px; border: 0; border-top: 1px solid var(--border-grey);">
-          <h3><i class="fas fa-calendar-check" style="color: var(--primary-blue); margin-right: 10px;"></i> Book a Consultation</h3>
-          <p style="color: var(--text-muted); margin-bottom: 16px;">Let’s discuss your security or IT needs.</p>
-          <a href="#contact" class="btn-primary" style="display: inline-block;">Request a Consultation</a>
+          <div id="consultation">
+            <h3><i class="fas fa-calendar-check" style="color: var(--primary-blue); margin-right: 10px;"></i> Book a Consultation</h3>
+            <p style="color: var(--text-muted); margin-bottom: 16px;">Tell us what you need and we will prepare a focused response.</p>
+            <form id="consultationForm" class="consultation-form">
+              <div>
+                <label for="consultationName">Name</label>
+                <input id="consultationName" name="name" autocomplete="name" required>
+              </div>
+              <div>
+                <label for="consultationContact">Phone or email <span style="font-weight: 400; color: var(--text-muted);">(optional)</span></label>
+                <input id="consultationContact" name="contact" autocomplete="email" placeholder="e.g. 024 000 0000 or name@example.com">
+              </div>
+              <div class="full-width">
+                <label for="consultationService">What can we help with?</label>
+                <select id="consultationService" name="service" required>
+                  <option value="" selected disabled>Select a service</option>
+                  <option>Cybersecurity training</option>
+                  <option>Cybersecurity consultancy</option>
+                  <option>IT consultancy</option>
+                  <option>Fraud investigation &amp; digital forensics</option>
+                  <option>AI &amp; emerging technology advisory</option>
+                  <option>Other / not sure yet</option>
+                </select>
+              </div>
+              <div class="full-width">
+                <label for="consultationMessage">Tell us about your request</label>
+                <textarea id="consultationMessage" name="message" placeholder="Briefly describe your organisation, challenge, and preferred time to talk." required></textarea>
+              </div>
+              <div class="full-width">
+                <button type="submit" class="btn-primary">Prepare Consultation Email <i class="fas fa-paper-plane" style="margin-left: 6px;"></i></button>
+                <p class="form-help">This opens a pre-filled email addressed to VigilantDigital Solutions. Please send it from your email app to complete the request.</p>
+              </div>
+            </form>
+          </div>
         </div>
 
         <!-- Right: report scam -->
@@ -968,6 +1032,21 @@
         navLinks.classList.remove('active');
       });
     });
+
+    const consultationForm = document.getElementById('consultationForm');
+    if (consultationForm) {
+      consultationForm.addEventListener('submit', event => {
+        event.preventDefault();
+        const formData = new FormData(consultationForm);
+        const name = formData.get('name');
+        const contact = formData.get('contact');
+        const service = formData.get('service');
+        const message = formData.get('message');
+        const subject = `Consultation request: ${service}`;
+        const body = `Hello VigilantDigital Solutions,\n\nI would like to request a consultation.\n\nName: ${name}\nPhone or email: ${contact || 'Not provided'}\nService needed: ${service}\n\nRequest details:\n${message}\n\nKind regards,\n${name}`;
+        window.location.href = `mailto:vigilantdigitalsolutions@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      });
+    }
   </script>
 </body>
 </html>
