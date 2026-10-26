@@ -590,6 +590,57 @@
       }
     }
 
+    .quiz-view {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      background: var(--white);
+    }
+
+    .quiz-view.active { display: flex; }
+
+    .quiz-view-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 24px;
+      color: var(--white);
+      background: var(--primary-dark);
+    }
+
+    .quiz-view-header h2 { font-size: 1.1rem; }
+
+    .quiz-close {
+      padding: 8px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.65);
+      border-radius: 6px;
+      color: var(--white);
+      background: transparent;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .quiz-frame { width: 100%; flex: 1; border: 0; }
+
+    .quiz-code-gate {
+      display: none;
+      max-width: 460px;
+      margin: auto;
+      padding: 32px;
+      text-align: center;
+      border: 1px solid var(--border-grey);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+    }
+
+    .quiz-code-gate.active { display: block; }
+    .quiz-code-gate input { width: 100%; margin: 18px 0 12px; padding: 12px; border: 1px solid var(--border-grey); border-radius: 8px; font: inherit; }
+    .quiz-code-error { min-height: 1.4em; margin-top: 10px; color: #c62828; font-size: 0.9rem; }
+
     /* footer */
     footer {
       background: var(--primary-dark);
@@ -916,10 +967,10 @@
           <h3><i class="fas fa-lightbulb" style="color: var(--primary-blue); margin-right: 10px;"></i> Test Your Cyber Security Knowledge</h3>
           <p style="color: var(--text-muted); margin-bottom: 16px;">Choose a quiz tailored to your audience.</p>
           <div class="quiz-links">
-            <a href="https://students-cyber-quiz.vercel.app/" target="_blank" rel="noopener noreferrer"><i class="fas fa-graduation-cap"></i> Students Quiz</a>
-            <a href="https://seniors-cyber-sentry.vercel.app/" target="_blank" rel="noopener noreferrer"><i class="fas fa-user-clock"></i> Senior Citizens Quiz</a>
-            <a href="https://employee-awareness-quiz.vercel.app/" target="_blank" rel="noopener noreferrer"><i class="fas fa-briefcase"></i> Employee Awareness Quiz</a>
-            <a href="https://v0-cyber-security-quiz-zl.vercel.app/" target="_blank" rel="noopener noreferrer"><i class="fas fa-question-circle"></i> General Knowledge Quiz</a>
+            <a href="#quiz-students" data-quiz="students"><i class="fas fa-graduation-cap"></i> Students Quiz</a>
+            <a href="#quiz-seniors" data-quiz="seniors"><i class="fas fa-user-clock"></i> Senior Citizens Quiz</a>
+            <a href="#quiz-employees" data-quiz="employees"><i class="fas fa-briefcase"></i> Employee Awareness Quiz</a>
+            <a href="#quiz-general" data-quiz="general"><i class="fas fa-question-circle"></i> General Knowledge Quiz</a>
           </div>
           <div class="quiz-note"><i class="fas fa-key" aria-hidden="true"></i><span><strong>General Knowledge Quiz access:</strong> enter code <strong>CSAW2025</strong> when prompted to begin.</span></div>
           <hr style="margin: 28px 0 20px; border: 0; border-top: 1px solid var(--border-grey);">
@@ -976,6 +1027,23 @@
       </div>
     </div>
   </section>
+
+  <div class="quiz-view" id="quizView" aria-hidden="true">
+    <div class="quiz-view-header">
+      <h2 id="quizViewTitle">Cyber Security Quiz</h2>
+      <button class="quiz-close" id="quizClose" type="button"><i class="fas fa-times"></i> Back to VigilantDigital</button>
+    </div>
+    <div class="quiz-code-gate" id="quizCodeGate">
+      <i class="fas fa-key" style="font-size: 2rem; color: var(--primary-blue);"></i>
+      <h2 style="margin: 14px 0 8px;">General Knowledge Quiz</h2>
+      <p style="color: var(--text-muted);">Enter your access code to continue.</p>
+      <label for="quizAccessCode" style="position: absolute; left: -9999px;">Access code</label>
+      <input id="quizAccessCode" type="text" autocomplete="off" placeholder="Enter access code">
+      <button class="btn-primary" id="quizCodeSubmit" type="button">Start Quiz</button>
+      <p class="quiz-code-error" id="quizCodeError" aria-live="polite"></p>
+    </div>
+    <iframe class="quiz-frame" id="quizFrame" title="Cyber Security Quiz" allow="fullscreen"></iframe>
+  </div>
 
   <!-- CONTACT & FOOTER -->
   <footer id="contact">
@@ -1046,6 +1114,73 @@
         const body = `Hello VigilantDigital Solutions,\n\nI would like to request a consultation.\n\nName: ${name}\nPhone or email: ${contact || 'Not provided'}\nService needed: ${service}\n\nRequest details:\n${message}\n\nKind regards,\n${name}`;
         window.location.href = `mailto:vigilantdigitalsolutions@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       });
+    }
+
+    const quizzes = {
+      students: { title: 'Students Cyber Security Quiz', url: 'https://students-cyber-quiz.vercel.app/' },
+      seniors: { title: 'Senior Citizens Cyber Security Quiz', url: 'https://seniors-cyber-sentry.vercel.app/' },
+      employees: { title: 'Employee Awareness Quiz', url: 'https://employee-awareness-quiz.vercel.app/' },
+      general: { title: 'General Knowledge Quiz', url: 'https://v0-cyber-security-quiz-zl.vercel.app/', codeRequired: true }
+    };
+    const quizView = document.getElementById('quizView');
+    const quizFrame = document.getElementById('quizFrame');
+    const quizViewTitle = document.getElementById('quizViewTitle');
+    const quizCodeGate = document.getElementById('quizCodeGate');
+    const quizAccessCode = document.getElementById('quizAccessCode');
+    const quizCodeError = document.getElementById('quizCodeError');
+    let activeQuiz;
+
+    function showQuiz(quizKey) {
+      const quiz = quizzes[quizKey];
+      if (!quiz) return closeQuiz();
+      activeQuiz = quiz;
+      quizViewTitle.textContent = quiz.title;
+      quizView.classList.add('active');
+      quizView.setAttribute('aria-hidden', 'false');
+      quizCodeError.textContent = '';
+      quizAccessCode.value = '';
+      quizCodeGate.classList.toggle('active', Boolean(quiz.codeRequired));
+      quizFrame.style.display = quiz.codeRequired ? 'none' : 'block';
+      if (!quiz.codeRequired) quizFrame.src = quiz.url;
+    }
+
+    function closeQuiz() {
+      quizView.classList.remove('active');
+      quizView.setAttribute('aria-hidden', 'true');
+      quizFrame.src = 'about:blank';
+      window.location.hash = 'engage';
+    }
+
+    function startProtectedQuiz() {
+      if (!activeQuiz || quizAccessCode.value.trim() !== 'CSAW2025') {
+        quizCodeError.textContent = 'Please enter the correct access code.';
+        quizAccessCode.focus();
+        return;
+      }
+      quizCodeGate.classList.remove('active');
+      quizFrame.style.display = 'block';
+      quizFrame.src = activeQuiz.url;
+    }
+
+    document.querySelectorAll('[data-quiz]').forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        window.location.hash = `quiz-${link.dataset.quiz}`;
+      });
+    });
+    document.getElementById('quizClose').addEventListener('click', closeQuiz);
+    document.getElementById('quizCodeSubmit').addEventListener('click', startProtectedQuiz);
+    quizAccessCode.addEventListener('keydown', event => {
+      if (event.key === 'Enter') startProtectedQuiz();
+    });
+    window.addEventListener('hashchange', () => {
+      const quizKey = window.location.hash.replace('#quiz-', '');
+      if (quizzes[quizKey]) showQuiz(quizKey);
+      else if (quizView.classList.contains('active')) closeQuiz();
+    });
+    if (window.location.hash.startsWith('#quiz-')) {
+      const quizKey = window.location.hash.replace('#quiz-', '');
+      showQuiz(quizKey);
     }
   </script>
 </body>
